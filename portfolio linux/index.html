@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en" class="dark"> <!-- Default to dark mode -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md. Mostofa Nayon - Portfolio</title>
+    
+    <!-- Theme preference: set class early to avoid flash -->
+    <script>
+        (function () {
+            try { var stored = localStorage.getItem('theme'); } catch (e) { var stored = null; }
+            // Default to dark when no preference stored
+            var isDark = stored ? stored === 'dark' : true;
+            var html = document.documentElement;
+            if (isDark) {
+                html.classList.add('dark');
+                html.classList.remove('light');
+            } else {
+                html.classList.remove('dark');
+                html.classList.add('light');
+            }
+        })();
+    </script>
+
+    <!-- Tailwind CSS (configured for class-based dark mode) -->
+    <script>
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = { darkMode: 'class' };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #111; /* Matte black for dark mode */
+            color: #E0E0E0;
+        }
+
+        /* Light mode styles */
+        .light body {
+            background-color: #F8F9FA;
+            color: #212529; /* Softer dark text for light mode */
+        }
+        .light .terminal-window,
+        .light .terminal-card {
+            background-color: #FFFFFF;
+            border-color: #DEE2E6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .light .terminal-header {
+            background-color: #F1F3F5;
+        }
+        .light .text-accent {
+            color: #0056b3; /* A deeper blue for light mode */
+        }
+        .light .border-accent {
+            border-color: #0056b3; /* Match new accent */
+        }
+        .light .shadow-accent {
+            box-shadow: 0 0 15px rgba(0, 86, 179, 0.3); /* Match new accent */
+        }
+        .light .hover\:shadow-accent-hover:hover {
+            box-shadow: 0 0 25px rgba(0, 86, 179, 0.5); /* Match new accent */
+        }
+        .light .btn-primary {
+            border-color: #0056b3; /* Match new accent */
+            color: #0056b3; /* Match new accent */
+        }
+        .light .btn-primary:hover {
+            background-color: #0056b3; /* Match new accent */
+            color: #FFFFFF;
+            box-shadow: 0 0 20px rgba(0, 86, 179, 0.4); /* Match new accent */
+        }
+        .light nav {
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* NEW: Specific light mode text color for about/projects */
+        .light #about .text-gray-900,
+        .light #projects .text-gray-900 {
+            color: #495057; /* A medium-dark gray for light mode text */
+        }
+
+        /* Accent Color */
+        :root {
+            --accent-color: #00adef;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Accent classes */
+        .text-accent { color: var(--accent-color); }
+        .border-accent { border-color: var(--accent-color); }
+        .bg-accent { background-color: var(--accent-color); }
+        .shadow-accent { box-shadow: 0 0 15px rgba(0, 173, 239, 0.5); }
+        .hover\:shadow-accent-hover:hover { box-shadow: 0 0 25px rgba(0, 173, 239, 0.8); }
+        
+        /* Terminal-like button */
+        .btn-primary {
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem; /* rounded-md */
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 173, 239, 0.7);
+        }
+        
+        /* Typing cursor */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2rem;
+            background-color: var(--accent-color);
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        /* Terminal window style */
+        .terminal-window {
+            background-color: rgba(16, 16, 16, 0.6);
+            border: 1px solid rgba(0, 173, 239, 0.3);
+            border-radius: 0.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .terminal-header {
+            background-color: rgba(40, 40, 40, 0.8);
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid rgba(0, 173, 239, 0.3);
+        }
+        .terminal-card {
+            background-color: rgba(20, 20, 20, 0.7);
+            border: 1px solid rgba(0, 173, 239, 0.2);
+            transition: all 0.3s ease;
+        }
+        .terminal-card:hover {
+            border-color: rgba(0, 173, 239, 0.6);
+            box-shadow: 0 0 20px rgba(0, 173, 239, 0.3);
+        }
+
+        /* Hide all legacy image edit buttons */
+        button[onclick^="editImage"] {
+            display: none !important;
+        }
+
+        /* Editable content styling */
+        [contenteditable="true"] {
+            outline: none;
+            border-radius: 4px;
+            padding: 2px 4px;
+            transition: all 0.3s ease;
+        }
+        [contenteditable="true"]:hover {
+            background-color: rgba(0, 173, 239, 0.1);
+        }
+        [contenteditable="true"]:focus {
+            background-color: rgba(0, 173, 239, 0.2);
+            box-shadow: 0 0 0 2px var(--accent-color);
+        }
+
+        /* Fade-in animation for sections */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 dark:bg-[#111] dark:text-gray-300">
+
+    <!-- ===== Header / Navbar ===== -->
+    <nav class="fixed top-0 left-0 right-0 z-50 dark:bg-black/80 bg-white/80 backdrop-blur-md shadow-lg dark:shadow-accent/10 shadow-black/5 transition-all duration-300">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <!-- Logo / Name -->
+                <a href="#home" class="text-2xl font-bold text-accent">
+                    root@mostofanayon:~#
+                </a>
+                
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#about" class="hover:text-accent transition-colors duration-300">/about</a>
+                    <a href="#skills" class="hover:text-accent transition-colors duration-300">/skills</a>
+                    <a href="#projects" class="hover:text-accent transition-colors duration-300">/projects</a>
+                    <a href="#resume" class="hover:text-accent transition-colors duration-300">/resume</a>
+                    <a href="#contact" class="hover:text-accent transition-colors duration-300">/contact</a>
+                    <button id="theme-switcher" class="p-2 rounded-full hover:bg-accent/10" title="Switch Theme">
+                        <!-- Sun Icon (Light Mode) -->
+                        <svg id="theme-icon-light" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:hidden"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <!-- Moon Icon (Dark Mode) -->
+                        <svg id="theme-icon-dark" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-900 dark:text-gray-300 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Nav (Hidden) -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
+            <a href="#about" class="block hover:text-accent transition-colors duration-300">/about</a>
+            <a href="#skills" class="block hover:text-accent transition-colors duration-300">/skills</a>
+            <a href="#projects" class="block hover:text-accent transition-colors duration-300">/projects</a>
+            <a href="#resume" class="block hover:text-accent transition-colors duration-300">/resume</a>
+            <a href="#contact" class="block hover:text-accent transition-colors duration-300">/contact</a>
+            <button id="theme-switcher-mobile" class="w-full text-left p-2 rounded-lg hover:bg-accent/10 flex items-center" title="Switch Theme">
+                <span class="mr-2">sudo theme --switch</span>
+                <!-- Icons will be toggled by JS -->
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===== Home Section ===== -->
+    <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20">
+        <div class="w-full max-w-4xl">
+            <!-- EDITABLE: Profile Image -->
+            <!-- 
+                CRITICAL FIX: 
+                The 'src' attribute MUST be a relative path to an image in your project folder,
+                or a public URL (e.g., from Imgur).
+                Example (relative path): src="./images/profile.jpg"
+            -->
+            <div class="relative w-40 h-40 mx-auto mb-8">
+                <img id="profile-pic" src="C:\Users\USER\Desktop\portfolio linux\486032278_2701671483354236_7726345450350157977_n.jpg" alt="Profile Picture" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/160x160/00adef/111111?text=MMN';"
+                     class="w-40 h-40 rounded-full object-cover border-4 border-accent shadow-accent transition-all duration-300 hover:shadow-accent-hover">
+                <button onclick="editImage('profile-pic')" class="absolute bottom-0 right-0 bg-accent text-black p-2 rounded-full hover:scale-110 transition-transform" title="Edit Profile Picture">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4L18.5 2.5z"></path></svg>
+                </button>
+            </div>
+
+            <!-- Typing Animation -->
+            <div class="text-xl md:text-3xl font-bold mb-8 h-20 md:h-10">
+                <span id="typing-text"></span><span class="cursor"></span>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6">
+                <a href="#about" class="btn-primary w-full md:w-auto">
+                    $ cat /etc/passwd | grep "about"
+                </a>
+                <a href="#projects" class="btn-primary w-full md:w-auto">
+                    $ ls -l /var/www/projects
+                </a>
+                <a href="#contact" class="btn-primary w-full md:w-auto">
+                    $ mail -s "Inquiry" root@host
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== About Me Section ===== -->
+    <section id="about" class="py-20 min-h-screen container mx-auto px-6 fade-in-section">
+        <h2 class="text-4xl font-bold text-center mb-12">
+            <span class="text-accent">#</span> whoami
+        </h2>
+        
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            <!-- Images -->
+            <div class="w-full lg:w-1/3 space-y-6">
+                <div class="relative group">
+                    <!-- 
+                        CRITICAL FIX: 
+                        The 'src' attribute MUST be a relative path or public URL.
+                        Example: src="./images/about-1.jpg"
+                    -->
+                    <img id="about-pic-1" src="C:\Users\USER\Desktop\portfolio linux\487878504_2711646902356694_2597164575442286891_n.jpg" alt="About Me 1" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/111111/eeeeee?text=About+Image+1';"
+                         class="rounded-lg object-cover w-full h-64 terminal-card">
+                    <button onclick="editImage('about-pic-1')" class="absolute top-2 right-2 bg-accent text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all" title="Edit Image 1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4L18.5 2.5z"></path></svg>
+                    </button>
+                </div>
+                <div class="relative group">
+                    <!-- 
+                        CRITICAL FIX: 
+                        The 'src' attribute MUST be a relative path or public URL.
+                        Example: src="./images/about-2.jpg"
+                    -->
+                    <img id="about-pic-2" src="C:\Users\USER\Desktop\portfolio linux\6064263805438463450.jpg" alt="About Me 2" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/111111/eeeeee?text=About+Image+2';"
+                         class="rounded-lg object-cover w-full h-64 terminal-card">
+                    <button onclick="editImage('about-pic-2')" class="absolute top-2 right-2 bg-accent text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all" title="Edit Image 2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4L18.5 2.5z"></path></svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Bio -->
+            <div class="w-full lg:w-2/3">
+                <!-- EDITABLE: Name -->
+                <h3 contenteditable="true" class="text-3xl font-bold mb-2">Md. Mostofa Nayon</h3>
+                <!-- EDITABLE: Title -->
+                <p contenteditable="true" class="text-xl text-accent mb-6">Aspiring Network Engineer & Cyber Security Expert</p>
+                
+                <!-- EDITABLE: Description -->
+                <div contenteditable="true" class="text-base md:text-lg space-y-4 text-gray-900 dark:text-gray-300">
+                    <p>
+                        A recently CCNA-certified Computer Science student with a strong passion for network engineering and cybersecurity. Proficient in configuring and managing network devices, with hands-on experience in both Windows and Linux Server environments.
+                    </p>
+                    <p>
+                        Eager to apply technical knowledge and problem-solving skills to secure and optimize network infrastructure.
+                    </p>
+                </div>
+
+                <!-- Social Links -->
+                <div class="flex space-x-6 mt-8">
+                    <!-- EDITABLE: Add your social links -->
+                    <a href="https://github.com/MMNayon00" target="_blank" class="text-gray-800 dark:text-gray-400 hover:text-accent transition-transform duration-300 hover:scale-125" title="GitHub">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/md-mostofa-nayon/" target="_blank" class="text-gray-800 dark:text-gray-400 hover:text-accent transition-transform duration-300 hover:scale-125" title="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                    <!-- EDITABLE: Facebook -->
+                    <a href="https://www.facebook.com/share/1Di3X98S6W/?mibextid=wwXIfr" target="_blank" class="text-gray-800 dark:text-gray-400 hover:text-accent transition-transform duration-300 hover:scale-125" title="Facebook">
+                        <!-- Facebook mark -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2V9.6c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2V12h2.3l-.4 3h-1.9v7A10 10 0 0 0 22 12z"></path>
+                        </svg>
+                    </a>
+                    <a href="mailto:mostofanayon2001@gmail.com" class="text-gray-800 dark:text-gray-400 hover:text-accent transition-transform duration-300 hover:scale-125" title="Email">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Skills Section ===== -->
+    <section id="skills" class="py-20 dark:bg-black/50 bg-gray-50/50 fade-in-section">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">
+                <span class="text-accent">$</span> /usr/bin/skills --list-all
+            </h2>
+            
+            <div class="terminal-window overflow-hidden shadow-accent">
+                <div class="terminal-header flex items-center space-x-2">
+                    <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+                    <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
+                    <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                </div>
+                <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- EDITABLE: Skills Category 1 -->
+                    <div>
+                        <h3 class="text-xl font-bold text-accent mb-3">Networking & Systems</h3>
+                        <ul contenteditable="true" class="list-disc list-inside space-y-2">
+                            <li>Networking Concepts (TCP/IP, OSI)</li>
+                            <li>Routing & Switching (RIP, EIGRP, OSPF)</li>
+                            <li>VLANs, STP, Inter-VLAN Routing</li>
+                            <li>MikroTik RouterOS & Winbox</li>
+                            <li>Windows & Linux Server Admin</li>
+                            <li>Bash Scripting</li>
+                            <li>IDS, Firewall Concepts</li>
+                            <li>Cisco Packet Tracer</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- EDITABLE: Skills Category 2 -->
+                    <div>
+                        <h3 class="text-xl font-bold text-accent mb-3">Ethical Hacking & Recon</h3>
+                        <ul contenteditable="true" class="list-disc list-inside space-y-2">
+                            <li>Penetration Testing Methods</li>
+                            <li>Footprinting & Reconnaissance</li>
+                            <li>OSINT (Open-Source Intelligence)</li>
+                            <li>Network Scanning & Enumeration</li>
+                            <li>System Hacking</li>
+                            <li>Social Engineering</li>
+                            <li>Malware Threats</li>
+                            <li>Denial Of Service (DoS/DDoS)</li>
+                        </ul>
+                    </div>
+
+                    <!-- EDITABLE: Skills Category 3 -->
+                    <div>
+                        <h3 class="text-xl font-bold text-accent mb-3">Security, Programming & Tools</h3>
+                        <ul contenteditable="true" class="list-disc list-inside space-y-2">
+                            <li>Web Application Hacking</li>
+                            <li>SQL Injection</li>
+                            <li>Bug Bounty</li>
+                            <li>Cryptography</li>
+                            <li>Python</li>
+                            <li>Java, C / C++</li>
+                            <li>HTML, CSS, JavaScript</li>
+                            <li>Capture The Flags (CTF)</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Icons Only (EDITABLE): Add/remove icons by changing the image src URLs -->
+            <div class="mt-10">
+                <h3 class="text-xl font-bold text-center mb-6">
+                    <span class="text-accent">#</span> Skills
+                </h3>
+                <!-- Composite skills banner provided by user -->
+                <div class="w-full flex justify-center mb-6">
+                    <img
+                        src="https://skills.syvixor.com/api/icons?perline=8&i=cpp,c,java,python,html,css,javascript,androidstudio,flutter,dart,linux,kalilinux,metasploit,windows,gitbash,github,git,cisco,canva,capcut,figma,mysql,ubuntu,adobelightroom"
+                        alt="Skills icons"
+                        loading="lazy"
+                        class="max-w-full h-auto rounded-md shadow-black/10 dark:shadow-accent/10"
+                        onerror="this.onerror=null; this.src='https://placehold.co/800x120/eeeeee/111111?text=Skills+Icons';"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Projects Section ===== -->
+    <section id="projects" class="py-20 container mx-auto px-6 fade-in-section">
+        <h2 class="text-4xl font-bold text-center mb-12">
+            <span class="text-accent">#</span> /var/www/projects
+        </h2>
+        
+    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- EDITABLE: Project 1 -->
+            <div class="terminal-card project-card rounded-lg overflow-hidden flex flex-col">
+                <div class="relative group">
+                    <!-- 
+                        CRITICAL FIX: 
+                        The 'src' attribute MUST be a relative path or public URL.
+                        Example: src="./images/project-1.png"
+                    -->
+                    <img id="project-img-1" src="C:\Users\USER\Desktop\portfolio linux\Screenshot 2025-08-09 171212.png" alt="Project 1" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/111111/00adef?text=VPN+Project';"
+                         class="w-full h-48 object-cover">
+                    <button onclick="editImage('project-img-1')" class="absolute top-2 right-2 bg-accent text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all" title="Edit Project 1 Image">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4L18.5 2.5z"></path></svg>
+                    </button>
+                </div>
+                <div class="p-6 flex-grow">
+                    <h3 contenteditable="true" class="text-2xl font-bold text-accent mb-2">Virtual Private Network (VPN) Implementation Project</h3>
+                    <p contenteditable="true" class="mb-4 text-gray-900 dark:text-gray-300">Designed and implemented a secure VPN network with 25 routers, enabling seamless communication and successful connectivity tests between distant nodes. Configured main (10.0.0.0–35.0.0.0) and VPN (192.168.10.0–192.168.25.0) ranges, showcasing strong skills in routing, network design, and VPN configuration.</p>
+                </div>
+                <div class="p-6 pt-0 flex space-x-4">
+                    <!-- EDITABLE: Update href to your GitHub repo -->
+                    <a href="https://github.com/MMNayon00" target="_blank" class="btn-primary text-sm flex-1 text-center">$ git clone ...</a>
+                    <!-- EDITABLE: Update href to a live demo if you have one -->
+                    <a href="#" class="btn-primary text-sm flex-1 text-center">$ ./run_demo.sh</a>
+                </div>
+            </div>
+            
+
+            
+            <!-- EDITABLE: Project 2 (Add more by copying this block) -->
+            <div class="terminal-card project-card rounded-lg overflow-hidden flex flex-col">
+                <div class="relative group">
+                    <!-- 
+                        CRITICAL FIX: 
+                        The 'src' attribute MUST be a relative path or public URL.
+                        Example: src="./images/project-2.png"
+                    -->
+                    <img id="project-img-3" src="C:\Users\USER\Desktop\portfolio linux\Screenshot 2025-09-01 003629.png" alt="Project 3" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/111111/00adef?text=MikroTik+Firewall';"
+                         class="w-full h-48 object-cover">
+                    <button onclick="editImage('project-img-3')" class="absolute top-2 right-2 bg-accent text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all" title="Edit Project 3 Image">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4L18.5 2.5z"></path></svg>
+                    </button>
+                </div>
+                <div class="p-6 flex-grow">
+                    <h3 contenteditable="true" class="text-2xl font-bold text-accent mb-2">MikroTik Firewall Configuration</h3>
+                    <p contenteditable="true" class="mb-4 text-gray-900 dark:text-gray-300">Configured a virtualized MikroTik network with bridging and a security firewall. Utilized Layer-7 protocols to filter traffic (e.g., block YouTube) and optimized firewall rules. (Tech: MikroTik RouterOS, Winbox)</p>
+                </div>
+                <div class="p-6 pt-0 flex space-x-4">
+                    <!-- EDITABLE: Update href to your GitHub repo -->
+                    <a href="https://github.com/MMNayon00" target="_blank" class="btn-primary text-sm flex-1 text-center">$ git clone ...</a>
+                    <!-- EDITABLE: Update href to a live demo if you have one -->
+                    <a href="#" class="btn-primary text-sm flex-1 text-center">$ ./run_demo.sh</a>
+                </div>
+            </div>
+
+            
+            <!-- EDITABLE: Project 3 (Add more by copying this block) -->
+            <div class="terminal-card project-card rounded-lg overflow-hidden flex flex-col">
+                <div class="relative group">
+                    <!-- 
+                        CRITICAL FIX: 
+                        The 'src' attribute MUST be a relative path or public URL.
+                        Example: src="./images/project-3.png"
+                    -->
+                    <img id="project-img-4" src="C:\Users\USER\Desktop\portfolio linux\Screenshot 2025-10-31 234601.png" alt="Project 4" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/111111/00adef?text=Cancer+Detection+AI';"
+                         class="w-full h-48 object-cover">
+                    <button onclick="editImage('project-img-4')" class="absolute top-2 right-2 bg-accent text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all" title="Edit Project 4 Image">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4L18.5 2.5z"></path></svg>
+                    </button>
+                </div>
+                <div class="p-6 flex-grow">
+                    <h3 contenteditable="true" class="text-2xl font-bold text-accent mb-2">Gallbladder Cancer Detection from Ultrasound Images Using Deep Learning</h3>
+                    <p contenteditable="true" class="mb-4 text-gray-900 dark:text-gray-300">Designed and implemented a deep learning system using transfer learning (ResNet, EfficientNet, MobileNet) to classify gallbladder conditions from ultrasound images. Applied ensemble learning to improve accuracy, achieving 89.21% test accuracy. Built using Python, PyTorch, and scikit-learn.</p>
+                </div>
+                <div class="p-6 pt-0 flex space-x-4">
+                    <!-- EDITABLE: Update href to your GitHub repo -->
+                    <a href="https://github.com/MMNayon00" target="_blank" class="btn-primary text-sm flex-1 text-center">$ git clone ...</a>
+                    <!-- EDITABLE: Update href to a live demo if you have one -->
+                    <a href="#" class="btn-primary text-sm flex-1 text-center">$ ./run_demo.sh</a>
+                </div>
+            </div>
+
+            <!-- EDITABLE: Project 4 (Add more by copying this block) -->
+            <div class="terminal-card project-card rounded-lg overflow-hidden flex flex-col">
+                <div class="relative group">
+                    <!-- 
+                        CRITICAL FIX: 
+                        The 'src' attribute MUST be a relative path or public URL.
+                        Example: src="./images/project-2.png"
+                    -->
+                    <img id="project-img-3" src="C:\Users\USER\Desktop\portfolio linux\444016922-890c7ae5-8e1c-479e-b634-c751fc701248.jpeg" alt="Project 3" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/111111/00adef?text=MikroTik+Firewall';"
+                         class="w-full h-48 object-cover">
+                    <button onclick="editImage('project-img-3')" class="absolute top-2 right-2 bg-accent text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all" title="Edit Project 3 Image">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4L18.5 2.5z"></path></svg>
+                    </button>
+                </div>
+                <div class="p-6 flex-grow">
+                    <h3 contenteditable="true" class="text-2xl font-bold text-accent mb-2">Library Management System</h3>
+                    <p contenteditable="true" class="mb-4 text-gray-900 dark:text-gray-300">Developed a modern Library Management System using Python (Tkinter) and MySQL to manage books, track borrow/return records, and enhance library operations. Implemented features for adding, searching, issuing, and updating books with a user-friendly graphical interface and secure database integration.</p>
+                </div>
+                <div class="p-6 pt-0 flex space-x-4">
+                    <!-- EDITABLE: Update href to your GitHub repo -->
+                    <a href="https://github.com/MMNayon00" target="_blank" class="btn-primary text-sm flex-1 text-center">$ git clone ...</a>
+                    <!-- EDITABLE: Update href to a live demo if you have one -->
+                    <a href="#" class="btn-primary text-sm flex-1 text-center">$ ./run_demo.sh</a>
+                </div>
+            </div>
+
+            <!-- EDITABLE: Project 5 (Add more by copying this block) -->
+            <div class="terminal-card project-card rounded-lg overflow-hidden flex flex-col">
+                <div class="relative group">
+                    <!-- 
+                        CRITICAL FIX: 
+                        The 'src' attribute MUST be a relative path or public URL.
+                        Example: src="./images/project-2.png"
+                    -->
+                    <img id="project-img-3" src="C:\Users\USER\Desktop\portfolio linux\456683190-072534a9-74ff-406d-9724-3ca997a7243c.jpg" alt="Project 3" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/111111/00adef?text=MikroTik+Firewall';"
+                         class="w-full h-48 object-cover">
+                    <button onclick="editImage('project-img-3')" class="absolute top-2 right-2 bg-accent text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all" title="Edit Project 3 Image">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4L18.5 2.5z"></path></svg>
+                    </button>
+                </div>
+                <div class="p-6 flex-grow">
+                    <h3 contenteditable="true" class="text-2xl font-bold text-accent mb-2">Digital Door Lock using Arduino</h3>
+                    <p contenteditable="true" class="mb-4 text-gray-900 dark:text-gray-300">Designed and implemented a password-protected digital door lock system using Arduino Nano, keypad, LCD, and servo motor. The system provides real-time feedback on an LCD and controls door access based on password validation, demonstrating a smart and secure prototype for home or office use.</p>
+                </div>
+                <div class="p-6 pt-0 flex space-x-4">
+                    <!-- EDITABLE: Update href to your GitHub repo -->
+                    <a href="https://github.com/MMNayon00" target="_blank" class="btn-primary text-sm flex-1 text-center">$ git clone ...</a>
+                    <!-- EDITABLE: Update href to a live demo if you have one -->
+                    <a href="#" class="btn-primary text-sm flex-1 text-center">$ ./run_demo.sh</a>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="text-center mt-8">
+            <button id="load-more-projects" class="btn-primary text-sm inline-flex items-center justify-center px-6 py-2">
+                Load More
+            </button>
+        </div>
+    </section>
+    
+    <!-- ===== Resume Section ===== -->
+    <section id="resume" class="py-20 dark:bg-black/50 bg-gray-50/50 fade-in-section">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">
+                <span class="text-accent">#</span> cat /home/mostofanayon/resume.txt
+            </h2>
+            
+            <div class="max-w-4xl mx-auto space-y-12">
+                <!-- EDITABLE: Education -->
+                <div>
+                    <h3 class="text-3xl font-bold text-accent mb-6 border-b-2 border-accent/30 pb-2">Education</h3>
+                    <div class="space-y-6">
+                        <div contenteditable="true">
+                            <h4 class="text-xl font-bold">B.Sc. in Computer Science and Engineering</h4>
+                            <p class="text-accent mb-1">Daffodil International University</p>
+                            <p class="text-gray-800 dark:text-gray-400 text-sm">04/2022 – 04/2026</p>
+                        </div>
+                        <div contenteditable="true">
+                            <h4 class="text-xl font-bold">HSC (Science)</h4>
+                            <p class="text-accent mb-1">Daffodil International College</p>
+                            <p class="text-gray-800 dark:text-gray-400 text-sm">2021</p>
+                        </div>
+                        <div contenteditable="true">
+                            <h4 class="text-xl font-bold">SSC (Science)</h4>
+                            <p class="text-accent mb-1">Govt. Mohammadpur Model School and College</p>
+                            <p class="text-gray-800 dark:text-gray-400 text-sm">2019</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EDITABLE: Experience -->
+                <div>
+                    <h3 class="text-3xl font-bold text-accent mb-6 border-b-2 border-accent/30 pb-2">Experience</h3>
+                    <div class="space-y-6">
+                        <div contenteditable="true">
+                            <h4 class="text-xl font-bold">Customer Service Representative</h4>
+                            <p class="text-accent mb-1">Car Kunjo</p>
+                            <p class="text-gray-800 dark:text-gray-400 text-sm">05/2022 – 01/2024</p>
+                            <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li>Provided Tier 1 technical support and troubleshooting for customer issues, resolving inquiries with a 95% satisfaction rate.</li>
+                                <li>Collaborated with the technical team to diagnose and escalate complex network-related problems.</li>
+                            </ul>
+                        </div>
+                        <div contenteditable="true">
+                            <h4 class="text-xl font-bold">Marketing Coordinator</h4>
+                            <p class="text-accent mb-1">Hakim Enterprises</p>
+                            <p class="text-gray-800 dark:text-gray-400 text-sm">02/2021 – 04/2022</p>
+                            <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li>Managed digital assets and maintained organized records for marketing campaigns.</li>
+                                <li>Analyzed campaign data to provide insights for performance improvement.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EDITABLE: Certifications -->
+                <div>
+                    <h3 class="text-3xl font-bold text-accent mb-6 border-b-2 border-accent/30 pb-2">Certifications</h3>
+                    <div class="space-y-6">
+                        <div contenteditable="true">
+                            <h4 class="text-xl font-bold">Cisco Certified Network Associate (CCNA)</h4>
+                        </div>
+                        <div contenteditable="true">
+                            <h4 class="text-xl font-bold">IT Infrastructure and Ethical Hacking (PGD)</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Download Button -->
+            <div class="text-center mt-16">
+                <!-- 
+                    CRITICAL FIX: 
+                    The 'href' attribute MUST be a relative path to a file in your project folder.
+                    Example: href="./resume/Nayon_Resume.pdf"
+                -->
+                <a href="C:\Users\USER\Desktop\portfolio linux\CV - Md. Mostofa Nayon (1) (1).pdf" download="Nayon_Resume.pdf" class="btn-primary text-lg inline-flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    $ sudo download resume.pdf
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Contact Section ===== -->
+    <section id="contact" class="py-20 container mx-auto px-6 fade-in-section">
+        <h2 class="text-4xl font-bold text-center mb-12">
+            <span class="text-accent">$</span> /bin/contact --send
+        </h2>
+        
+        <div class="terminal-window max-w-3xl mx-auto shadow-accent">
+            <div class="terminal-header flex items-center space-x-2">
+                <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+                <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
+                <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                <span class="flex-1 text-center text-sm text-gray-800 dark:text-gray-400">new-message.sh</span>
+            </div>
+            <!-- 
+                CRITICAL FIX: 
+                The 'action' attribute should point to a static form handler like Formspree.
+                The JavaScript for 'localhost:3000' will not work on a live site.
+                Example: action="https://formspree.io/f/YOUR_UNIQUE_ID"
+            -->
+            <form id="contact-form" action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST" class="p-8 space-y-6">
+                <div>
+                    <label for="name" class="block text-accent mb-2">$ user@host:</label>
+                    <input type="text" id="name" name="name" required autocomplete="name"
+                           class="w-full bg-transparent border-b-2 border-accent/50 focus:border-accent focus:outline-none focus:ring-0 py-2 transition-colors duration-300">
+                </div>
+                <div>
+                    <label for="email" class="block text-accent mb-2">$ email:</label>
+                    <input type="email" id="email" name="email" required autocomplete="email"
+                           class="w-full bg-transparent border-b-2 border-accent/50 focus:border-accent focus:outline-none focus:ring-0 py-2 transition-colors duration-300">
+                </div>
+                <div>
+                    <label for="message" class="block text-accent mb-2">$ message:</label>
+                    <textarea id="message" name="message" rows="5" required
+                              class="w-full bg-transparent border-2 border-accent/50 rounded-md focus:border-accent focus:outline-none focus:ring-0 p-2 transition-colors duration-300"></textarea>
+                </div>
+                <!-- Honeypot (spam trap) - leave empty -->
+                <input type="text" name="_hp" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+                <div class="text-right">
+                    <button type="submit" class="btn-primary">
+                        $ ./send_message
+                    </button>
+                </div>
+                <p id="contact-status" class="mt-2 text-sm"></p>
+            </form>
+        </div>
+        
+        <!-- Contact Info & Socials -->
+        <div class="text-center max-w-3xl mx-auto mt-12">
+            <!-- EDITABLE: Email -->
+            <p contenteditable="true" class="text-lg mb-6">
+                Or contact me directly at: <a href="mailto:mostofanayon2001@gmail.com" class="text-accent hover:underline">mostofanayon2001@gmail.com</a>
+                <span class="mx-2">|</span>
+                Phone: <a href="tel:+8801310387836" class="text-accent hover:underline">+8801310387836</a>
+            </p>
+            
+            <div class="flex justify-center space-x-8">
+                <!-- EDITABLE: Add your social links -->
+                <a href="https://github.com/MMNayon00" target="_blank" class="text-gray-800 dark:text-gray-400 hover:text-accent transition-transform duration-300 hover:scale-125" title="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/md-mostofa-nayon/" target="_blank" class="text-gray-800 dark:text-gray-400 hover:text-accent transition-transform duration-300 hover:scale-125" title="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+                <!-- EDITABLE: Facebook -->
+                <a href="https://www.facebook.com/share/1Di3X98S6W/?mibextid=wwXIfr" target="_blank" class="text-gray-800 dark:text-gray-400 hover:text-accent transition-transform duration-300 hover:scale-125" title="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2V9.6c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2V12h2.3l-.4 3h-1.9v7A10 10 0 0 0 22 12z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="py-8 dark:bg-black/80 bg-gray-100 border-t border-accent/20">
+    <div class="container mx-auto px-6 text-center text-gray-800 dark:text-gray-400">
+            <!-- EDITABLE: Copyright -->
+            <p contenteditable="true">
+                &copy; 2025 Md. Mostofa Nayon. All rights reserved.
+            </p>
+            <p class="text-sm mt-2">
+                Built with <span class="text-accent">&lt;3</span> and a lot of coffee.
+            </p>
+        </div>
+    </footer>
+
+
+    <!-- ===== JavaScript ===== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Mobile Menu Toggle ---
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            menuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Close menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // --- Theme Switcher ---
+            const themeSwitcher = document.getElementById('theme-switcher');
+            const themeSwitcherMobile = document.getElementById('theme-switcher-mobile');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const html = document.documentElement;
+
+            // Remove Tailwind dark: helper classes on icons to avoid conflicts and control via JS
+            if (themeIconLight) themeIconLight.classList.remove('dark:hidden');
+            if (themeIconDark) themeIconDark.classList.remove('dark:block');
+
+            function setTheme(isDark) {
+                html.classList.toggle('dark', isDark);
+                html.classList.toggle('light', !isDark);
+                try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
+
+                if (themeIconLight && themeIconDark) {
+                    if (isDark) {
+                        themeIconLight.classList.add('hidden');
+                        themeIconDark.classList.remove('hidden');
+                    } else {
+                        themeIconLight.classList.remove('hidden');
+                        themeIconDark.classList.add('hidden');
+                    }
+                }
+
+                if (themeSwitcherMobile) {
+                    themeSwitcherMobile.innerHTML = isDark
+                        ? `
+                        <span class="mr-2">sudo theme --switch (light)</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        `
+                        : `
+                        <span class="mr-2">sudo theme --switch (dark)</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                        `;
+                }
+            }
+
+            const toggleTheme = () => {
+                const newIsDark = !html.classList.contains('dark');
+                setTheme(newIsDark);
+            };
+
+            if (themeSwitcher) themeSwitcher.addEventListener('click', toggleTheme);
+            if (themeSwitcherMobile) themeSwitcherMobile.addEventListener('click', toggleTheme);
+
+            // Initialize UI to reflect current theme
+            setTheme(html.classList.contains('dark'));
+
+
+            // --- Typing Animation ---
+            const typingText = document.getElementById('typing-text');
+            // EDITABLE: Change these to your own text
+            const textLines = [
+                "root@mostofanayon:~# whoami",
+                "Md. Mostofa Nayon — Aspiring Network Engineer & Cyber Security Expert"
+            ];
+            let lineIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            
+            function type() {
+                const currentLine = textLines[lineIndex];
+                
+                if (isDeleting) {
+                    // Deleting
+                    typingText.textContent = currentLine.substring(0, charIndex - 1);
+                    charIndex--;
+                    if (charIndex === 0) {
+                        isDeleting = false;
+                        lineIndex = (lineIndex + 1) % textLines.length;
+                        setTimeout(type, 500); // Pause before typing next line
+                    } else {
+                        setTimeout(type, 50); // Deleting speed
+                    }
+                } else {
+                    // Typing
+                    typingText.textContent = currentLine.substring(0, charIndex + 1);
+                    charIndex++;
+                    if (charIndex === currentLine.length) {
+                        isDeleting = true;
+                        setTimeout(type, 3000); // Pause at end of line
+                    } else {
+                        setTimeout(type, 100); // Typing speed
+                    }
+                }
+            }
+            if (typingText) {
+                type();
+            }
+
+            // --- Fade-in Sections on Scroll ---
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the section is visible
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // --- Projects Load More ---
+            (function setupProjectsLoadMore() {
+                const cards = Array.from(document.querySelectorAll('#projects .project-card'));
+                const loadMoreBtn = document.getElementById('load-more-projects');
+                if (!loadMoreBtn) return;
+
+                if (cards.length <= 3) {
+                    loadMoreBtn.parentElement.classList.add('hidden');
+                    return;
+                }
+
+                let expanded = false;
+                const hideExtra = () => {
+                    cards.slice(3).forEach(c => c.classList.add('hidden'));
+                    loadMoreBtn.textContent = 'Load More';
+                };
+                const showAll = () => {
+                    cards.slice(3).forEach(c => c.classList.remove('hidden'));
+                    loadMoreBtn.textContent = 'Show Less';
+                };
+
+                hideExtra();
+                loadMoreBtn.addEventListener('click', () => {
+                    expanded = !expanded;
+                    expanded ? showAll() : hideExtra();
+                });
+            })();
+
+            // --- Contact Form Submit ---
+            // This script is designed for a static form handler like Formspree
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                const statusEl = document.getElementById('contact-status');
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+
+                contactForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    if (!statusEl || !submitBtn) return;
+                    
+                    const originalBtn = submitBtn.textContent;
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = '$ sending...';
+                    statusEl.textContent = '';
+                    statusEl.className = 'mt-2 text-sm';
+                    
+                    const formData = new FormData(contactForm);
+                    
+                    try {
+                        const resp = await fetch(contactForm.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (resp.ok) {
+                            statusEl.textContent = 'Message sent successfully. I\'ll get back to you soon.';
+                            statusEl.classList.add('text-green-500');
+                            contactForm.reset();
+                        } else {
+                            const data = await resp.json().catch(() => ({}));
+                            if (Object.hasOwn(data, 'errors')) {
+                                throw new Error(data["errors"].map(error => error["message"]).join(", "));
+                            } else {
+                                throw new Error('Failed to send message');
+                            }
+                        }
+                    } catch (err) {
+                        statusEl.textContent = 'Failed to send. Please try again later or email me directly.';
+                        statusEl.classList.add('text-red-500');
+                        console.error('Contact form error:', err);
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalBtn;
+                    }
+                });
+            }
+        });
+
+        // --- Simple Image "Upload" Function ---
+        // This prompts the user for a URL.
+        function editImage(imgId) {
+            // Disabled: prompt-based image editing removed per request.
+            // No action is taken when clicking the edit buttons.
+            return false;
+        }
+    </script>
+
+</body>
+</html>
+
+
