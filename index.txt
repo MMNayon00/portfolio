@@ -163,20 +163,7 @@
             display: none !important;
         }
 
-        /* Editable content styling */
-        [contenteditable="true"] {
-            outline: none;
-            border-radius: 4px;
-            padding: 2px 4px;
-            transition: all 0.3s ease;
-        }
-        [contenteditable="true"]:hover {
-            background-color: rgba(0, 173, 239, 0.1);
-        }
-        [contenteditable="true"]:focus {
-            background-color: rgba(0, 173, 239, 0.2);
-            box-shadow: 0 0 0 2px var(--accent-color);
-        }
+        /* Removed in production: inline editing styles */
 
         /* Fade-in animation for sections */
         .fade-in-section {
@@ -250,7 +237,7 @@
                 Example (relative path): src="./images/profile.jpg"
             -->
             <div class="relative w-40 h-40 mx-auto mb-8">
-                <img id="profile-pic" src="C:\Users\USER\Desktop\portfolio linux\486032278_2701671483354236_7726345450350157977_n.jpg" alt="Profile Picture" 
+                <img id="profile-pic" src="486032278_2701671483354236_7726345450350157977_n.jpg" alt="Profile Picture" 
                      onerror="this.onerror=null; this.src='https://placehold.co/160x160/00adef/111111?text=MMN';"
                      class="w-40 h-40 rounded-full object-cover border-4 border-accent shadow-accent transition-all duration-300 hover:shadow-accent-hover">
                 <button onclick="editImage('profile-pic')" class="absolute bottom-0 right-0 bg-accent text-black p-2 rounded-full hover:scale-110 transition-transform" title="Edit Profile Picture">
@@ -293,7 +280,7 @@
                         The 'src' attribute MUST be a relative path or public URL.
                         Example: src="./images/about-1.jpg"
                     -->
-                    <img id="about-pic-1" src="C:\Users\USER\Desktop\portfolio linux\487878504_2711646902356694_2597164575442286891_n.jpg" alt="About Me 1" 
+                    <img id="about-pic-1" src="487878504_2711646902356694_2597164575442286891_n.jpg" alt="About Me 1" 
                          onerror="this.onerror=null; this.src='https://placehold.co/600x400/111111/eeeeee?text=About+Image+1';"
                          class="rounded-lg object-cover w-full h-64 terminal-card">
                     <button onclick="editImage('about-pic-1')" class="absolute top-2 right-2 bg-accent text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all" title="Edit Image 1">
@@ -306,7 +293,7 @@
                         The 'src' attribute MUST be a relative path or public URL.
                         Example: src="./images/about-2.jpg"
                     -->
-                    <img id="about-pic-2" src="C:\Users\USER\Desktop\portfolio linux\6064263805438463450.jpg" alt="About Me 2" 
+                    <img id="about-pic-2" src="6064263805438463450.jpg" alt="About Me 2" 
                          onerror="this.onerror=null; this.src='https://placehold.co/600x400/111111/eeeeee?text=About+Image+2';"
                          class="rounded-lg object-cover w-full h-64 terminal-card">
                     <button onclick="editImage('about-pic-2')" class="absolute top-2 right-2 bg-accent text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all" title="Edit Image 2">
@@ -317,13 +304,13 @@
             
             <!-- Bio -->
             <div class="w-full lg:w-2/3">
-                <!-- EDITABLE: Name -->
-                <h3 contenteditable="true" class="text-3xl font-bold mb-2">Md. Mostofa Nayon</h3>
-                <!-- EDITABLE: Title -->
-                <p contenteditable="true" class="text-xl text-accent mb-6">Aspiring Network Engineer & Cyber Security Expert</p>
+                <!-- Name -->
+                <h3 class="text-3xl font-bold mb-2">Md. Mostofa Nayon</h3>
+                <!-- Title -->
+                <p class="text-xl text-accent mb-6">Aspiring Network Engineer & Cyber Security Expert</p>
                 
-                <!-- EDITABLE: Description -->
-                <div contenteditable="true" class="text-base md:text-lg space-y-4 text-gray-900 dark:text-gray-300">
+                <!-- Description -->
+                <div class="text-base md:text-lg space-y-4 text-gray-900 dark:text-gray-300">
                     <p>
                         A recently CCNA-certified Computer Science student with a strong passion for network engineering and cybersecurity. Proficient in configuring and managing network devices, with hands-on experience in both Windows and Linux Server environments.
                     </p>
@@ -374,7 +361,7 @@
                     <!-- EDITABLE: Skills Category 1 -->
                     <div>
                         <h3 class="text-xl font-bold text-accent mb-3">Networking & Systems</h3>
-                        <ul contenteditable="true" class="list-disc list-inside space-y-2">
+                        <ul class="list-disc list-inside space-y-2">
                             <li>Networking Concepts (TCP/IP, OSI)</li>
                             <li>Routing & Switching (RIP, EIGRP, OSPF)</li>
                             <li>VLANs, STP, Inter-VLAN Routing</li>
@@ -389,7 +376,7 @@
                     <!-- EDITABLE: Skills Category 2 -->
                     <div>
                         <h3 class="text-xl font-bold text-accent mb-3">Ethical Hacking & Recon</h3>
-                        <ul contenteditable="true" class="list-disc list-inside space-y-2">
+                        <ul class="list-disc list-inside space-y-2">
                             <li>Penetration Testing Methods</li>
                             <li>Footprinting & Reconnaissance</li>
                             <li>OSINT (Open-Source Intelligence)</li>
@@ -404,7 +391,7 @@
                     <!-- EDITABLE: Skills Category 3 -->
                     <div>
                         <h3 class="text-xl font-bold text-accent mb-3">Security, Programming & Tools</h3>
-                        <ul contenteditable="true" class="list-disc list-inside space-y-2">
+                        <ul class="list-disc list-inside space-y-2">
                             <li>Web Application Hacking</li>
                             <li>SQL Injection</li>
                             <li>Bug Bounty</li>
@@ -454,7 +441,7 @@
                         The 'src' attribute MUST be a relative path or public URL.
                         Example: src="./images/project-1.png"
                     -->
-                    <img id="project-img-1" src="C:\Users\USER\Desktop\portfolio linux\Screenshot 2025-08-09 171212.png" alt="Project 1" 
+                    <img id="project-img-1" src="Screenshot 2025-08-09 171212.png" alt="Project 1" 
                          onerror="this.onerror=null; this.src='https://placehold.co/600x400/111111/00adef?text=VPN+Project';"
                          class="w-full h-48 object-cover">
                     <button onclick="editImage('project-img-1')" class="absolute top-2 right-2 bg-accent text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all" title="Edit Project 1 Image">
@@ -462,8 +449,8 @@
                     </button>
                 </div>
                 <div class="p-6 flex-grow">
-                    <h3 contenteditable="true" class="text-2xl font-bold text-accent mb-2">Virtual Private Network (VPN) Implementation Project</h3>
-                    <p contenteditable="true" class="mb-4 text-gray-900 dark:text-gray-300">Designed and implemented a secure VPN network with 25 routers, enabling seamless communication and successful connectivity tests between distant nodes. Configured main (10.0.0.0–35.0.0.0) and VPN (192.168.10.0–192.168.25.0) ranges, showcasing strong skills in routing, network design, and VPN configuration.</p>
+                    <h3 class="text-2xl font-bold text-accent mb-2">Virtual Private Network (VPN) Implementation Project</h3>
+                    <p class="mb-4 text-gray-900 dark:text-gray-300">Designed and implemented a secure VPN network with 25 routers, enabling seamless communication and successful connectivity tests between distant nodes. Configured main (10.0.0.0–35.0.0.0) and VPN (192.168.10.0–192.168.25.0) ranges, showcasing strong skills in routing, network design, and VPN configuration.</p>
                 </div>
                 <div class="p-6 pt-0 flex space-x-4">
                     <!-- EDITABLE: Update href to your GitHub repo -->
@@ -483,7 +470,7 @@
                         The 'src' attribute MUST be a relative path or public URL.
                         Example: src="./images/project-2.png"
                     -->
-                    <img id="project-img-3" src="C:\Users\USER\Desktop\portfolio linux\Screenshot 2025-09-01 003629.png" alt="Project 3" 
+                    <img id="project-img-3" src="Screenshot 2025-09-01 003629.png" alt="Project 3" 
                          onerror="this.onerror=null; this.src='https://placehold.co/600x400/111111/00adef?text=MikroTik+Firewall';"
                          class="w-full h-48 object-cover">
                     <button onclick="editImage('project-img-3')" class="absolute top-2 right-2 bg-accent text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all" title="Edit Project 3 Image">
@@ -491,8 +478,8 @@
                     </button>
                 </div>
                 <div class="p-6 flex-grow">
-                    <h3 contenteditable="true" class="text-2xl font-bold text-accent mb-2">MikroTik Firewall Configuration</h3>
-                    <p contenteditable="true" class="mb-4 text-gray-900 dark:text-gray-300">Configured a virtualized MikroTik network with bridging and a security firewall. Utilized Layer-7 protocols to filter traffic (e.g., block YouTube) and optimized firewall rules. (Tech: MikroTik RouterOS, Winbox)</p>
+                    <h3 class="text-2xl font-bold text-accent mb-2">MikroTik Firewall Configuration</h3>
+                    <p class="mb-4 text-gray-900 dark:text-gray-300">Configured a virtualized MikroTik network with bridging and a security firewall. Utilized Layer-7 protocols to filter traffic (e.g., block YouTube) and optimized firewall rules. (Tech: MikroTik RouterOS, Winbox)</p>
                 </div>
                 <div class="p-6 pt-0 flex space-x-4">
                     <!-- EDITABLE: Update href to your GitHub repo -->
@@ -511,7 +498,7 @@
                         The 'src' attribute MUST be a relative path or public URL.
                         Example: src="./images/project-3.png"
                     -->
-                    <img id="project-img-4" src="C:\Users\USER\Desktop\portfolio linux\Screenshot 2025-10-31 234601.png" alt="Project 4" 
+                    <img id="project-img-4" src="Screenshot 2025-10-31 234601.png" alt="Project 4" 
                          onerror="this.onerror=null; this.src='https://placehold.co/600x400/111111/00adef?text=Cancer+Detection+AI';"
                          class="w-full h-48 object-cover">
                     <button onclick="editImage('project-img-4')" class="absolute top-2 right-2 bg-accent text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all" title="Edit Project 4 Image">
@@ -519,8 +506,8 @@
                     </button>
                 </div>
                 <div class="p-6 flex-grow">
-                    <h3 contenteditable="true" class="text-2xl font-bold text-accent mb-2">Gallbladder Cancer Detection from Ultrasound Images Using Deep Learning</h3>
-                    <p contenteditable="true" class="mb-4 text-gray-900 dark:text-gray-300">Designed and implemented a deep learning system using transfer learning (ResNet, EfficientNet, MobileNet) to classify gallbladder conditions from ultrasound images. Applied ensemble learning to improve accuracy, achieving 89.21% test accuracy. Built using Python, PyTorch, and scikit-learn.</p>
+                    <h3 class="text-2xl font-bold text-accent mb-2">Gallbladder Cancer Detection from Ultrasound Images Using Deep Learning</h3>
+                    <p class="mb-4 text-gray-900 dark:text-gray-300">Designed and implemented a deep learning system using transfer learning (ResNet, EfficientNet, MobileNet) to classify gallbladder conditions from ultrasound images. Applied ensemble learning to improve accuracy, achieving 89.21% test accuracy. Built using Python, PyTorch, and scikit-learn.</p>
                 </div>
                 <div class="p-6 pt-0 flex space-x-4">
                     <!-- EDITABLE: Update href to your GitHub repo -->
@@ -538,7 +525,7 @@
                         The 'src' attribute MUST be a relative path or public URL.
                         Example: src="./images/project-2.png"
                     -->
-                    <img id="project-img-3" src="C:\Users\USER\Desktop\portfolio linux\444016922-890c7ae5-8e1c-479e-b634-c751fc701248.jpeg" alt="Project 3" 
+                    <img id="project-img-3" src="444016922-890c7ae5-8e1c-479e-b634-c751fc701248.jpeg" alt="Project 3" 
                          onerror="this.onerror=null; this.src='https://placehold.co/600x400/111111/00adef?text=MikroTik+Firewall';"
                          class="w-full h-48 object-cover">
                     <button onclick="editImage('project-img-3')" class="absolute top-2 right-2 bg-accent text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all" title="Edit Project 3 Image">
@@ -546,8 +533,8 @@
                     </button>
                 </div>
                 <div class="p-6 flex-grow">
-                    <h3 contenteditable="true" class="text-2xl font-bold text-accent mb-2">Library Management System</h3>
-                    <p contenteditable="true" class="mb-4 text-gray-900 dark:text-gray-300">Developed a modern Library Management System using Python (Tkinter) and MySQL to manage books, track borrow/return records, and enhance library operations. Implemented features for adding, searching, issuing, and updating books with a user-friendly graphical interface and secure database integration.</p>
+                    <h3 class="text-2xl font-bold text-accent mb-2">Library Management System</h3>
+                    <p class="mb-4 text-gray-900 dark:text-gray-300">Developed a modern Library Management System using Python (Tkinter) and MySQL to manage books, track borrow/return records, and enhance library operations. Implemented features for adding, searching, issuing, and updating books with a user-friendly graphical interface and secure database integration.</p>
                 </div>
                 <div class="p-6 pt-0 flex space-x-4">
                     <!-- EDITABLE: Update href to your GitHub repo -->
@@ -565,7 +552,7 @@
                         The 'src' attribute MUST be a relative path or public URL.
                         Example: src="./images/project-2.png"
                     -->
-                    <img id="project-img-3" src="C:\Users\USER\Desktop\portfolio linux\456683190-072534a9-74ff-406d-9724-3ca997a7243c.jpg" alt="Project 3" 
+                    <img id="project-img-3" src="456683190-072534a9-74ff-406d-9724-3ca997a7243c.jpg" alt="Project 3" 
                          onerror="this.onerror=null; this.src='https://placehold.co/600x400/111111/00adef?text=MikroTik+Firewall';"
                          class="w-full h-48 object-cover">
                     <button onclick="editImage('project-img-3')" class="absolute top-2 right-2 bg-accent text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all" title="Edit Project 3 Image">
@@ -573,8 +560,8 @@
                     </button>
                 </div>
                 <div class="p-6 flex-grow">
-                    <h3 contenteditable="true" class="text-2xl font-bold text-accent mb-2">Digital Door Lock using Arduino</h3>
-                    <p contenteditable="true" class="mb-4 text-gray-900 dark:text-gray-300">Designed and implemented a password-protected digital door lock system using Arduino Nano, keypad, LCD, and servo motor. The system provides real-time feedback on an LCD and controls door access based on password validation, demonstrating a smart and secure prototype for home or office use.</p>
+                    <h3 class="text-2xl font-bold text-accent mb-2">Digital Door Lock using Arduino</h3>
+                    <p class="mb-4 text-gray-900 dark:text-gray-300">Designed and implemented a password-protected digital door lock system using Arduino Nano, keypad, LCD, and servo motor. The system provides real-time feedback on an LCD and controls door access based on password validation, demonstrating a smart and secure prototype for home or office use.</p>
                 </div>
                 <div class="p-6 pt-0 flex space-x-4">
                     <!-- EDITABLE: Update href to your GitHub repo -->
@@ -605,17 +592,17 @@
                 <div>
                     <h3 class="text-3xl font-bold text-accent mb-6 border-b-2 border-accent/30 pb-2">Education</h3>
                     <div class="space-y-6">
-                        <div contenteditable="true">
+                        <div>
                             <h4 class="text-xl font-bold">B.Sc. in Computer Science and Engineering</h4>
                             <p class="text-accent mb-1">Daffodil International University</p>
                             <p class="text-gray-800 dark:text-gray-400 text-sm">04/2022 – 04/2026</p>
                         </div>
-                        <div contenteditable="true">
+                        <div>
                             <h4 class="text-xl font-bold">HSC (Science)</h4>
                             <p class="text-accent mb-1">Daffodil International College</p>
                             <p class="text-gray-800 dark:text-gray-400 text-sm">2021</p>
                         </div>
-                        <div contenteditable="true">
+                        <div>
                             <h4 class="text-xl font-bold">SSC (Science)</h4>
                             <p class="text-accent mb-1">Govt. Mohammadpur Model School and College</p>
                             <p class="text-gray-800 dark:text-gray-400 text-sm">2019</p>
@@ -627,7 +614,7 @@
                 <div>
                     <h3 class="text-3xl font-bold text-accent mb-6 border-b-2 border-accent/30 pb-2">Experience</h3>
                     <div class="space-y-6">
-                        <div contenteditable="true">
+                        <div>
                             <h4 class="text-xl font-bold">Customer Service Representative</h4>
                             <p class="text-accent mb-1">Car Kunjo</p>
                             <p class="text-gray-800 dark:text-gray-400 text-sm">05/2022 – 01/2024</p>
@@ -636,7 +623,7 @@
                                 <li>Collaborated with the technical team to diagnose and escalate complex network-related problems.</li>
                             </ul>
                         </div>
-                        <div contenteditable="true">
+                        <div>
                             <h4 class="text-xl font-bold">Marketing Coordinator</h4>
                             <p class="text-accent mb-1">Hakim Enterprises</p>
                             <p class="text-gray-800 dark:text-gray-400 text-sm">02/2021 – 04/2022</p>
@@ -652,10 +639,10 @@
                 <div>
                     <h3 class="text-3xl font-bold text-accent mb-6 border-b-2 border-accent/30 pb-2">Certifications</h3>
                     <div class="space-y-6">
-                        <div contenteditable="true">
+                        <div>
                             <h4 class="text-xl font-bold">Cisco Certified Network Associate (CCNA)</h4>
                         </div>
-                        <div contenteditable="true">
+                        <div>
                             <h4 class="text-xl font-bold">IT Infrastructure and Ethical Hacking (PGD)</h4>
                         </div>
                     </div>
@@ -726,7 +713,7 @@
         <!-- Contact Info & Socials -->
         <div class="text-center max-w-3xl mx-auto mt-12">
             <!-- EDITABLE: Email -->
-            <p contenteditable="true" class="text-lg mb-6">
+            <p class="text-lg mb-6">
                 Or contact me directly at: <a href="mailto:mostofanayon2001@gmail.com" class="text-accent hover:underline">mostofanayon2001@gmail.com</a>
                 <span class="mx-2">|</span>
                 Phone: <a href="tel:+8801310387836" class="text-accent hover:underline">+8801310387836</a>
@@ -754,7 +741,7 @@
     <footer class="py-8 dark:bg-black/80 bg-gray-100 border-t border-accent/20">
     <div class="container mx-auto px-6 text-center text-gray-800 dark:text-gray-400">
             <!-- EDITABLE: Copyright -->
-            <p contenteditable="true">
+            <p>
                 &copy; 2025 Md. Mostofa Nayon. All rights reserved.
             </p>
             <p class="text-sm mt-2">
@@ -767,6 +754,9 @@
     <!-- ===== JavaScript ===== -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Hardening: ensure no inline editing is possible in production
+            document.querySelectorAll('[contenteditable]')
+                .forEach(el => el.removeAttribute('contenteditable'));
 
             // --- Mobile Menu Toggle ---
             const menuButton = document.getElementById('mobile-menu-button');
