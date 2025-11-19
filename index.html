@@ -130,6 +130,12 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Active nav link styling */
+        nav a.active {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
     </style>
 </head>
 <body class="bg-[#111] text-gray-300">
@@ -213,7 +219,7 @@
     <!-- ===== About Me Section ===== -->
     <section id="about" class="py-20 min-h-screen container mx-auto px-6 fade-in-section">
         <h2 class="text-4xl font-bold text-center mb-12">
-            <span class="text-accent">#</span> whoami
+            <span class="text-accent">#</span> whoami<span class="cursor"></span>
         </h2>
         
         <div class="flex flex-col lg:flex-row items-center gap-12">
@@ -292,7 +298,7 @@
     <section id="skills" class="py-20 bg-black/50 fade-in-section">
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-12">
-                <span class="text-accent">$</span> /usr/bin/skills --list-all
+                <span class="text-accent">$</span> /usr/bin/skills --list-all<span class="cursor"></span>
             </h2>
             
             <div class="terminal-window overflow-hidden shadow-accent">
@@ -373,7 +379,7 @@
     <!-- ===== Projects Section ===== -->
     <section id="projects" class="py-20 container mx-auto px-6 fade-in-section">
         <h2 class="text-4xl font-bold text-center mb-12">
-            <span class="text-accent">#</span> /var/www/projects
+            <span class="text-accent">#</span> /var/www/projects<span class="cursor"></span>
         </h2>
         
     <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -519,7 +525,7 @@
     <section id="resume" class="py-20 bg-black/50 fade-in-section">
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-12">
-                <span class="text-accent">#</span> cat /home/mostofanayon/resume.txt
+                <span class="text-accent">#</span> cat /home/mostofanayon/resume.txt<span class="cursor"></span>
             </h2>
             
             <div class="max-w-4xl mx-auto space-y-12">
@@ -602,7 +608,7 @@
     <!-- ===== Contact Section ===== -->
     <section id="contact" class="py-20 container mx-auto px-6 fade-in-section">
         <h2 class="text-4xl font-bold text-center mb-12">
-            <span class="text-accent">$</span> /bin/contact --send
+            <span class="text-accent">$</span> /bin/contact --send<span class="cursor"></span>
         </h2>
         
         <div class="terminal-window max-w-3xl mx-auto shadow-accent">
@@ -766,6 +772,41 @@
                 observer.observe(section);
             });
 
+            // --- Active Nav Link on Scroll ---
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            const sectionElements = document.querySelectorAll('section[id]');
+
+            function setActiveNavLink() {
+                let currentSection = '';
+                
+                sectionElements.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (window.scrollY >= sectionTop - 100) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSection}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', setActiveNavLink);
+            window.addEventListener('load', setActiveNavLink);
+
+            // Also set active on click
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
             // --- Projects Load More ---
             (function setupProjectsLoadMore() {
                 const cards = Array.from(document.querySelectorAll('#projects .project-card'));
@@ -857,6 +898,7 @@
 
 </body>
 </html>
+
 
 
 
