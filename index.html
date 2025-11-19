@@ -2,9 +2,22 @@
 <html lang="en" class="dark"> <!-- Default to dark mode -->
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="color-scheme" content="dark">
     <meta name="theme-color" content="#111111">
+    <meta name="description" content="Md. Mostofa Nayon - Aspiring Network Engineer & Cyber Security Expert. CCNA certified professional specializing in network engineering, ethical hacking, and cybersecurity.">
+    <meta name="keywords" content="Network Engineer, Cyber Security, CCNA, Ethical Hacking, Portfolio, Md. Mostofa Nayon">
+    <meta name="author" content="Md. Mostofa Nayon">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Md. Mostofa Nayon - Portfolio">
+    <meta property="og:description" content="Aspiring Network Engineer & Cyber Security Expert">
+    <meta property="og:url" content="">
+    
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="486032278_2701671483354236_7726345450350157977_n.jpg">
+    
     <title>Md. Mostofa Nayon - Portfolio</title>
     
     <!-- Theme preference: set class early to avoid flash -->
@@ -31,14 +44,32 @@
     
     <style>
         /* Base styles */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
         body {
             font-family: 'JetBrains Mono', monospace;
             background-color: #111; /* Matte black for dark mode */
             color: #E0E0E0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+        
         /* Mobile hardening: prevent horizontal scroll and allow long strings to wrap */
-        html, body { max-width: 100%; overflow-x: hidden; }
+        html, body { 
+            max-width: 100%; 
+            overflow-x: hidden;
+            scroll-padding-top: 80px; /* Account for fixed navbar */
+        }
         .long-text { overflow-wrap: anywhere; word-break: break-word; }
+
+        /* Improved image loading */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
 
         /* Removed light mode styles (dark-only site) */
 
@@ -50,6 +81,18 @@
         /* Smooth scrolling */
         html {
             scroll-behavior: smooth;
+        }
+        
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
 
         /* Accent classes */
@@ -67,11 +110,22 @@
             border-radius: 0.375rem; /* rounded-md */
             transition: all 0.3s ease;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            touch-action: manipulation;
+            -webkit-user-select: none;
+            user-select: none;
         }
-        .btn-primary:hover {
+        .btn-primary:hover,
+        .btn-primary:focus {
             background-color: var(--accent-color);
             color: #000;
             box-shadow: 0 0 20px rgba(0, 173, 239, 0.7);
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+        .btn-primary:active {
+            transform: scale(0.98);
         }
         
         /* Typing cursor */
@@ -135,6 +189,63 @@
         nav a.active {
             color: var(--accent-color);
             font-weight: bold;
+        }
+        
+        /* Touch-friendly link and button sizing */
+        a, button {
+            min-height: 44px;
+            min-width: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Better focus visibility for keyboard navigation */
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+        
+        /* Performance: GPU acceleration for animations */
+        .fade-in-section,
+        .terminal-card,
+        .btn-primary {
+            will-change: transform, opacity;
+        }
+        
+        /* Mobile-specific optimizations */
+        @media (max-width: 768px) {
+            .cursor {
+                width: 8px;
+                height: 1rem;
+            }
+            
+            /* Reduce blur for better mobile performance */
+            .terminal-window {
+                backdrop-filter: blur(5px);
+            }
+            
+            nav {
+                backdrop-filter: blur(5px);
+            }
+        }
+        
+        /* Tablet optimizations */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .container {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+        
+        /* Large screen optimizations */
+        @media (min-width: 1920px) {
+            .container {
+                max-width: 1400px;
+            }
         }
     </style>
 </head>
@@ -616,7 +727,7 @@
                 <span class="w-3 h-3 bg-red-500 rounded-full"></span>
                 <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
                 <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-                <span class="flex-1 text-center text-sm text-gray-400 truncate max-w-[60%] mx-auto block">new-message.sh</span>
+                <span class="flex-1 text-center text-sm text-gray-400">new-message.sh</span>
             </div>
             <!-- 
                 CRITICAL FIX: 
@@ -624,7 +735,7 @@
                 The JavaScript for 'localhost:3000' will not work on a live site.
                 Example: action="https://formspree.io/f/YOUR_UNIQUE_ID"
             -->
-            <form id="contact-form" action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST" class="p-8 space-y-6">
+            <form id="contact-form" action="https://formspree.io/f/xeoneyyv" method="POST" class="p-8 space-y-6">
                 <div>
                     <label for="name" class="block text-accent mb-2">$ user@host:</label>
                     <input type="text" id="name" name="name" required autocomplete="name"
@@ -642,6 +753,9 @@
                 </div>
                 <!-- Honeypot (spam trap) - leave empty -->
                 <input type="text" name="_hp" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+                <!-- Hidden fields for better Formspree functionality -->
+                <input type="hidden" name="_subject" value="New Portfolio Contact Message">
+                <input type="hidden" name="_replyto" id="replyto-field">
                 <div class="text-right">
                     <button type="submit" class="btn-primary">
                         $ ./send_message
@@ -657,7 +771,7 @@
             <p class="text-lg mb-6 long-text">
                 Or contact me directly at: <a href="mailto:mostofanayon2001@gmail.com" class="text-accent hover:underline">mostofanayon2001@gmail.com</a>
                 <span class="mx-2">|</span>
-                Phone: <a href="tel:+8801310387836" class="text-accent hover:underline">+8801310387836</a>
+                Phone: <a href="tel:+8801310387836" class="text-accent hover:underline">+8801301994411</a>
             </p>
             
             <div class="flex justify-center space-x-8">
@@ -686,7 +800,7 @@
                 &copy; 2025 Md. Mostofa Nayon. All rights reserved.
             </p>
             <p class="text-sm mt-2">
-                Built with <span class="text-accent">&lt;3</span> and a lot of coffee.
+                $ echo "Made with passion" | tee <span class="text-accent">/dev/heart</span> > /dev/null
             </p>
         </div>
     </footer>
@@ -776,6 +890,8 @@
             const navLinks = document.querySelectorAll('nav a[href^="#"]');
             const sectionElements = document.querySelectorAll('section[id]');
 
+            // Throttle scroll event for better performance
+            let scrollTimeout;
             function setActiveNavLink() {
                 let currentSection = '';
                 
@@ -796,7 +912,13 @@
                 });
             }
 
-            window.addEventListener('scroll', setActiveNavLink);
+            window.addEventListener('scroll', () => {
+                if (scrollTimeout) {
+                    window.cancelAnimationFrame(scrollTimeout);
+                }
+                scrollTimeout = window.requestAnimationFrame(setActiveNavLink);
+            }, { passive: true });
+            
             window.addEventListener('load', setActiveNavLink);
 
             // Also set active on click
@@ -846,9 +968,17 @@
                     e.preventDefault();
                     if (!statusEl || !submitBtn) return;
                     
+                    // Set reply-to field with user's email
+                    const replyToField = document.getElementById('replyto-field');
+                    const emailField = document.getElementById('email');
+                    if (replyToField && emailField) {
+                        replyToField.value = emailField.value;
+                    }
+                    
                     const originalBtn = submitBtn.textContent;
                     submitBtn.disabled = true;
                     submitBtn.textContent = '$ sending...';
+                    submitBtn.setAttribute('aria-busy', 'true');
                     statusEl.textContent = '';
                     statusEl.className = 'mt-2 text-sm';
                     
@@ -866,6 +996,7 @@
                         if (resp.ok) {
                             statusEl.textContent = 'Message sent successfully. I\'ll get back to you soon.';
                             statusEl.classList.add('text-green-500');
+                            statusEl.setAttribute('role', 'status');
                             contactForm.reset();
                         } else {
                             const data = await resp.json().catch(() => ({}));
@@ -878,11 +1009,33 @@
                     } catch (err) {
                         statusEl.textContent = 'Failed to send. Please try again later or email me directly.';
                         statusEl.classList.add('text-red-500');
+                        statusEl.setAttribute('role', 'alert');
                         console.error('Contact form error:', err);
                     } finally {
                         submitBtn.disabled = false;
                         submitBtn.textContent = originalBtn;
+                        submitBtn.removeAttribute('aria-busy');
                     }
+                });
+            }
+            
+            // --- Performance: Lazy load images ---
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            if (img.dataset.src) {
+                                img.src = img.dataset.src;
+                                img.removeAttribute('data-src');
+                            }
+                            observer.unobserve(img);
+                        }
+                    });
+                });
+
+                document.querySelectorAll('img[data-src]').forEach(img => {
+                    imageObserver.observe(img);
                 });
             }
         });
@@ -898,6 +1051,8 @@
 
 </body>
 </html>
+
+
 
 
 
